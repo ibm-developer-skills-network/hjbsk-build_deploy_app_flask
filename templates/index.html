@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="./static/mywebscript.js"></script>
     <style>
         .center-heading {
             text-align: center;
@@ -13,27 +12,34 @@
 <body>
     <div class="card">
 	<h1 class="center-heading">Basic Mathematical Application</h1> 
+    <form method="post">
         <div style="padding: 25px 25px 25px 25px;">
         <div class="card-body">
             <div class="mb-3">
                 <label class="form-label">Number 1</label>
-                <input type="number" class="form-control" id="num1">
+                <input type="number" class="form-control" id="num1" name="num1" value="{{ num1 or '' }}">
             </div>
     
             <div class="mb-3">
                 <label class="form-label">Number 2</label>
-                <input type="number" class="form-control" id="num2">
+                <input type="number" class="form-control" id="num2" name="num2" value="{{ num2 or '' }}">
             </div>
     
             <div style="padding: 25px;">
-                <button onclick="runAddition()" class="btn btn-secondary">Add</button>
-                <button onclick="runSubtraction()" class="btn btn-secondary">Subtract</button>
-                <button onclick="runMultiplication()" class="btn btn-secondary">Multiply</button>
+                <button type="submit" name="add" class="btn btn-secondary">Add</button>
+                <button type="submit" name="sub" class="btn btn-secondary">Subtract</button>
+                <button type="submit" name="mul" class="btn btn-secondary">Multiply</button>
+   
             </div>
+    </form>
 	<h1 class="center-heading">Response from server</h1> 
             <div style="padding: 25px 25px 25px 25px;">
     
-            <div id="system_response" style="padding: 25px;"></div>
+            <div id="system_response" style="padding: 25px;">
+                {% if action %}
+                    <p>{{ action }}</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </body>
