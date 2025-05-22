@@ -1,23 +1,26 @@
-let runAddition = () => {
-    let num1 = parseFloat(document.getElementById("num1").value);
-    let num2 = parseFloat(document.getElementById("num2").value);
+    const sendRequest = async (operation) => {
+    const num1 = document.getElementById("num1").value;
+    const num2 = document.getElementById("num2").value;
 
-    let result = num1 + num2;
-    document.getElementById("system_response").innerHTML = "Result: " + result;
+    try {
+        const response = await fetch(`${operation}?num1=${num1}&num2=${num2}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const data = await response.text();
+        document.getElementById("system_response").innerHTML = data;
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById("system_response").innerHTML = 'An error occurred, please try again.';
+    }
 };
 
-let runSubtraction = () => {
-    let num1 = parseFloat(document.getElementById("num1").value);
-    let num2 = parseFloat(document.getElementById("num2").value);
-
-    let result = num1 - num2;
-    document.getElementById("system_response").innerHTML = "Result: " + result;
+const runOperation = (operation) => {
+      sendRequest(operation);
 };
 
-let runMultiplication = () => {
-    let num1 = parseFloat(document.getElementById("num1").value);
-    let num2 = parseFloat(document.getElementById("num2").value);
-
-    let result = num1 * num2;
-    document.getElementById("system_response").innerHTML = "Result: " + result;
-};
+const runAddition = () => runOperation("sum");
+const runSubtraction = () => runOperation("sub");
+const runMultiplication = () => runOperation("mul");
